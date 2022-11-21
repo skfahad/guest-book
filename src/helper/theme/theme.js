@@ -20,11 +20,19 @@ let theme = createTheme({
         MuiCssBaseline: {
             "@global": {
                 body: {
-                    backgroundColor: '#F6F8F9',
+                    backgroundColor: '#FFF',
                     color: '#373f47',
                 },
             },
         },
+        MuiTextField: {
+            root: {
+                "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+                    backgroundColor: '#FFF',
+                    color: 'green'
+                },
+            },
+        }
     }
 });
 

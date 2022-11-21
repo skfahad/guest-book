@@ -1,5 +1,6 @@
 //React, React Router, Formik
 import React from 'react';
+import {useHistory} from 'react-router-dom';
 
 //Material UI
 import {makeStyles} from '@material-ui/core/styles';
@@ -30,6 +31,7 @@ const useStyles = makeStyles(theme => ({
 const Layout = (props) => {
 
     const classes = useStyles();
+    const history = useHistory();
 
     let content = null;
     if (true) { //!isAuthenticated
@@ -50,7 +52,7 @@ const Layout = (props) => {
             {/*<Spinner/>
             <SnackBar/>*/}
 
-            <Header />
+            {history.location.pathname !== '/login' && <Header />}
             {content}
         </>
     );

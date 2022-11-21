@@ -17,13 +17,10 @@ import logo from '../../../Assets/logo.png'
 const useStyles = makeStyles((theme) => ({
     container: {
         width: "100%",
-        [theme.breakpoints.up("lg")]: {
-            width: "calc(100% - 232px)",
-        },
         marginLeft: "auto",
     },
     appbar: {
-        background: "#323232",
+        background: theme.palette.secondary.main,
         borderBottom: `1px solid ${theme.palette.grey.white_lilac}`,
     },
     toolbar: {
@@ -40,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     logoutButton: {
-        color: '#faa831',
+        color: theme.palette.primary.main,
     }
 }));
 

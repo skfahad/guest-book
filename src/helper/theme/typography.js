@@ -118,7 +118,6 @@ const lmsHeadingBody2= {
 
 const typography = {
     fontFamily: [
-        'Inter',
         'Nunito',
     ].join(','),
     fontSize: 16,

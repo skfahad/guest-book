@@ -1,19 +1,29 @@
 import {guestActions} from "./slice";
-var fs = require('fs');
-import guestFile from '../../Data/guests.json';
+import axiosInstance from "../../helper/axios";
 
 const basePath = '/guest';
 
-export const store = (formdata) => {
-    console.log('formdata: ', formdata);
-    fs.readFile(guestFile, 'utf8', (err, jsonString) => {
-        if (err) {
-            return;
-        }
-        try {
-            console.log('jsonString: ', jsonString);
-        } catch (err) {
-            console.log('Error parsing JSON string:', err);
-        }
-    })
+export const store = async credential => {
+
+    //dispatch(uiActions.setPendingRequest({pendingRequest: true}));
+
+    //axiosInstance.get(`${basePath}/store`, credential)
+    /*axiosInstance.get(`/`, credential)
+        .then(response => {
+            console.log('response: ', response);
+            //dispatch();
+
+            //dispatch(uiActions.setPendingRequest({pendingRequest: false}));
+            //setAccessToken(response.access_token);
+        })
+        .catch(([error, status]) => {
+            //dispatch(uiActions.setErrorApiResponse(error));
+            //dispatch(uiActions.setPendingRequest({pendingRequest: false}));
+            console.log(error.response);
+        })*/
+
+    const response = await fetch('/');
+    const body = await response.json();
+
+    console.log('body: ', body);
 }

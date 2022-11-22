@@ -15,6 +15,7 @@ import {Autocomplete} from "@material-ui/lab";
 //Redux
 import {store} from "../../../../Store/Guest/actions";
 import {useDispatch} from "react-redux";
+import Button from "@material-ui/core/Button";
 
 //Assets
 
@@ -64,7 +65,7 @@ const Form = () => {
     })
 
     return (
-        <form className={classes.form}>
+        <form onSubmit={formik.handleSubmit}>
 
             <Grid container spacing={6} className={classes.container}>
                 <Grid item xs={12} sm={6}>
@@ -195,6 +196,12 @@ const Form = () => {
                             <MenuItem value="5">Category 5</MenuItem>
                         </Select>
                     </FormControl>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Button type="submit" color="secondary" variant="contained" fullWidth>
+                        Submit
+                    </Button>
                 </Grid>
             </Grid>
 

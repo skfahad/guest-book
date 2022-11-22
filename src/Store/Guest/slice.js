@@ -8,8 +8,8 @@ const slice = createSlice({
     name: 'guest',
     initialState,
     reducers: {
-        setGuests(state) {
-            state.guests = [];
+        setGuests(state, action) {
+            state.guests = action.payload.guests;
         },
     },
 });

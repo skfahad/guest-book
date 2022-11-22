@@ -5,16 +5,18 @@ import DateFnsUtils from "@date-io/date-fns";
 import {useFormik} from "formik";
 import { fromUnixTime, getUnixTime } from 'date-fns'
 import COUNTRIES from "../../../../helper/countries";
+import validationObject from "../../../../request/Guest/StoreGuestRequest";
 
 //Material UI
 import {makeStyles} from '@material-ui/core/styles';
-import {FormControl, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
+import {FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import {Autocomplete} from "@material-ui/lab";
 
 //Redux
 import {store} from "../../../../Store/Guest/actions";
 import {useDispatch} from "react-redux";
+import Button from "@material-ui/core/Button";
 
 //Assets
 
@@ -48,23 +50,24 @@ const Form = () => {
 
     const formik = useFormik({
         initialValues: {
-            name: "",
-            email: "",
-            isdCode: "",
-            phoneNumber: "",
+            name: "Fahad",
+            email: "Shaikh@hi.kjh",
+            isdCode: "+91",
+            phoneNumber: "8424819943    ",
             adults: 1,
             children: 0,
             checkInDate: getUnixTime(new Date()),
             checkOutDate: getUnixTime(add(new Date(), {days: 1})),
-            category: '1'
+            category: 'Single'
         },
-        onSubmit: values => {
-            dispatch(store(values));
+        onSubmit: (values, {resetForm}) => {
+            dispatch(store(values, resetForm));
         },
+        validationSchema: validationObject,
     })
 
     return (
-        <form className={classes.form}>
+        <form onSubmit={formik.handleSubmit}>
 
             <Grid container spacing={6} className={classes.container}>
                 <Grid item xs={12} sm={6}>
@@ -75,6 +78,8 @@ const Form = () => {
                         name="name"
                         value={formik.values.name}
                         onChange={formik.handleChange}
+                        error={formik.touched.name && Boolean(formik.errors.name)}
+                        helperText={formik.touched.name && formik.errors.name}
                     />
                 </Grid>
 
@@ -86,6 +91,8 @@ const Form = () => {
                         name="email"
                         value={formik.values.email}
                         onChange={formik.handleChange}
+                        error={formik.touched.email && Boolean(formik.errors.email)}
+                        helperText={formik.touched.email && formik.errors.email}
                     />
                 </Grid>
 
@@ -112,6 +119,8 @@ const Form = () => {
                             onChange={formik.handleChange}
                             disabled
                             style={{minWidth: 70, maxWidth: 90}}
+                            error={formik.touched.isdCode && Boolean(formik.errors.isdCode)}
+                            helperText={formik.touched.isdCode && formik.errors.isdCode}
                         />
                     </Grid>
 
@@ -120,9 +129,11 @@ const Form = () => {
                             fullWidth
                             label="Phone Number"
                             variant="outlined"
-                            name="phone_number"
+                            name="phoneNumber"
                             value={formik.values.phoneNumber}
                             onChange={formik.handleChange}
+                            error={formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)}
+                            helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
                         />
                     </Grid>
                 </Grid>
@@ -136,6 +147,9 @@ const Form = () => {
                         name="adults"
                         value={formik.values.adults}
                         onChange={formik.handleChange}
+                        InputProps={{inputProps: {min: 1, max: 50}}}
+                        error={formik.touched.adults && Boolean(formik.errors.adults)}
+                        helperText={formik.touched.adults && formik.errors.adults}
                     />
                 </Grid>
 
@@ -148,6 +162,9 @@ const Form = () => {
                         name="children"
                         value={formik.values.children}
                         onChange={formik.handleChange}
+                        InputProps={{inputProps: {min: 0, max: 50}}}
+                        error={formik.touched.children && Boolean(formik.errors.children)}
+                        helperText={formik.touched.children && formik.errors.children}
                     />
                 </Grid>
 
@@ -163,6 +180,12 @@ const Form = () => {
                             value={fromUnixTime(formik.values.checkInDate)}
                             onChange={(date) => handleDateChange('checkInDate', date)}
                         />
+                        {
+                            formik.touched.checkInDate && Boolean(formik.errors.checkInDate) &&
+                            <FormHelperText>
+                                {formik.errors.checkInDate}
+                            </FormHelperText>
+                        }
                     </Grid>
 
                     <Grid item xs={6}>
@@ -176,6 +199,12 @@ const Form = () => {
                             value={fromUnixTime(formik.values.checkOutDate)}
                             onChange={(date) => handleDateChange('checkOutDate', date)}
                         />
+                        {
+                            formik.touched.checkOutDate && Boolean(formik.errors.checkOutDate) &&
+                            <FormHelperText>
+                                {formik.errors.checkOutDate}
+                            </FormHelperText>
+                        }
                     </Grid>
                 </MuiPickersUtilsProvider>
 
@@ -187,14 +216,25 @@ const Form = () => {
                             name="category"
                             value={formik.values.category}
                             onChange={formik.handleChange}
+                            error={formik.touched.category && Boolean(formik.errors.category)}
+                            helperText={formik.touched.category && formik.errors.category}
                         >
-                            <MenuItem value="1">Category 1</MenuItem>
-                            <MenuItem value="2">Category 2</MenuItem>
-                            <MenuItem value="3">Category 3</MenuItem>
-                            <MenuItem value="4">Category 4</MenuItem>
-                            <MenuItem value="5">Category 5</MenuItem>
+                            <MenuItem value="Single">Single</MenuItem>
+                            <MenuItem value="Double">Double</MenuItem>
+                            <MenuItem value="Queen">Queen</MenuItem>
+                            <MenuItem value="King">King</MenuItem>
+                            <MenuItem value="Twin">Twin</MenuItem>
+                            <MenuItem value="Studio">Studio</MenuItem>
+                            <MenuItem value="Presidential Suite">Presidential Suite</MenuItem>
+                            <MenuItem value="Apartments">Apartments</MenuItem>
                         </Select>
                     </FormControl>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Button type="submit" color="secondary" variant="contained" fullWidth>
+                        Submit
+                    </Button>
                 </Grid>
             </Grid>
 

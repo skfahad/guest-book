@@ -1,19 +1,31 @@
 import {guestActions} from "./slice";
-var fs = require('fs');
-import guestFile from '../../Data/guests.json';
+import axios from "axios";
 
-const basePath = '/guest';
+export const show = (formData) => {
 
-export const store = (formdata) => {
-    console.log('formdata: ', formdata);
-    fs.readFile(guestFile, 'utf8', (err, jsonString) => {
-        if (err) {
-            return;
-        }
-        try {
-            console.log('jsonString: ', jsonString);
-        } catch (err) {
-            console.log('Error parsing JSON string:', err);
-        }
-    })
+    console.log('formData; ', formData);
+
+    return dispatch => {
+        axios.get(`http://localhost:5000/api/show`, {
+            params: formData
+        })
+            .then(res => {
+                dispatch(guestActions.setGuests(res.data))
+            })
+            .catch(error => {
+                //dispatch(uiActions.setErrorApiResponse(error));
+            })
+    }
+}
+
+export const store = (formData, resetForm) => {
+
+    axios.post(`http://localhost:5000/api/store`, formData)
+        .then(res => {
+            console.log('res: ', res);
+            resetForm();
+        })
+        .catch(error => {
+            //dispatch(uiActions.setErrorApiResponse(error));
+        })
 }

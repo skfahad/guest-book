@@ -45,7 +45,7 @@ const GuestContent = ({guest}) => {
                     <Typography className={classes.key}>
                         Name
                     </Typography>
-                    <Typography className={classes.value}>
+                    <Typography>
                         {guest.name}
                     </Typography>
                 </Grid>
@@ -56,7 +56,7 @@ const GuestContent = ({guest}) => {
                     <Typography className={classes.key}>
                         Mobile Number
                     </Typography>
-                    <Typography className={classes.value}>
+                    <Typography>
                         {`${guest.isdCode}${guest.phoneNumber}`}
                     </Typography>
                 </Grid>
@@ -65,7 +65,7 @@ const GuestContent = ({guest}) => {
                     <Typography className={classes.key}>
                         Children
                     </Typography>
-                    <Typography className={classes.value}>
+                    <Typography>
                         {guest.children}
                     </Typography>
                 </Grid>
@@ -74,7 +74,7 @@ const GuestContent = ({guest}) => {
                     <Typography className={classes.key}>
                         Check Out Date
                     </Typography>
-                    <Typography className={classes.value}>
+                    <Typography>
                         {format(fromUnixTime(guest.checkOutDate), 'dd/MM/yyyy')}
                     </Typography>
                 </Grid>
@@ -88,8 +88,17 @@ const GuestContent = ({guest}) => {
                     <Typography className={classes.key}>
                         Email
                     </Typography>
-                    <Typography className={classes.value}>
+                    <Typography>
                         {guest.email}
+                    </Typography>
+                </Grid>
+
+                <Grid item className={classes.keyValueWrapper}>
+                    <Typography className={classes.key}>
+                        Category
+                    </Typography>
+                    <Typography>
+                        {guest.category}
                     </Typography>
                 </Grid>
 
@@ -97,7 +106,7 @@ const GuestContent = ({guest}) => {
                     <Typography className={classes.key}>
                         Adults
                     </Typography>
-                    <Typography className={classes.value}>
+                    <Typography>
                         {guest.adults}
                     </Typography>
                 </Grid>
@@ -106,7 +115,7 @@ const GuestContent = ({guest}) => {
                     <Typography className={classes.key}>
                         Check In Date
                     </Typography>
-                    <Typography className={classes.value}>
+                    <Typography>
                         {format(fromUnixTime(guest.checkInDate), 'dd/MM/yyyy')}
                     </Typography>
                 </Grid>

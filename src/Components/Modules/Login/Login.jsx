@@ -111,7 +111,7 @@ const Login = () => {
         onSubmit: values => {
             //dispatch(login(values));
         },
-    })
+    });
 
     return (
 

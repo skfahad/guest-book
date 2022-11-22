@@ -1,12 +1,12 @@
 //React, React Router, Formik
 import React from 'react';
-import {useHistory} from 'react-router-dom';
 
 //Material UI
 import {makeStyles} from '@material-ui/core/styles';
 import Header from "../Header/Header";
 
 //Redux
+import {useSelector} from "react-redux";
 
 //Assets
 
@@ -18,9 +18,6 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.up("md")]: {
             padding: theme.spacing(8),
         },
-        [theme.breakpoints.up("lg")]: {
-            width: "calc(100% - 232px)",
-        }
     },
     contentContainer: {
         maxWidth: "1144px",
@@ -31,10 +28,11 @@ const useStyles = makeStyles(theme => ({
 const Layout = (props) => {
 
     const classes = useStyles();
-    const history = useHistory();
+
+    const {isAuthenticated} = useSelector(state => state.auth);
 
     let content = null;
-    if (true) { //!isAuthenticated
+    if (!isAuthenticated) { //!isAuthenticated
         content = <div className={classes.contentContainer}>
             {props.children}
         </div>;
@@ -52,7 +50,7 @@ const Layout = (props) => {
             {/*<Spinner/>
             <SnackBar/>*/}
 
-            {history.location.pathname !== '/login' && <Header />}
+            {isAuthenticated && <Header />}
             {content}
         </>
     );

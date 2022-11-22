@@ -130,6 +130,21 @@ const typography = {
     body1,
     body2,
     subtitle1,
+    lmsHeading1: {
+        fontSize: h1.fontSize,
+        lineHeight: h1.lineHeight,
+        fontWeight: 700,
+        letterSpacing: '.01875rem',
+        '@media (min-width:992px)': {
+            fontSize: h1['@media (min-width:992px)'].fontSize,
+        },
+    },
+    lmsCard: {
+        background: '#FFF',
+        boxShadow: '0 2px 4px rgb(0 0 0 / 12%), 0 0 2px rgb(0 0 0 / 8%)',
+        borderRadius: '0.5rem',
+        padding: '1.5rem'
+    },
 };
 
 export default typography;

@@ -8,7 +8,7 @@ let theme = createTheme({
         values: {
             //xxs: 399
             xs: 0,
-            sm: 600,
+            sm: 450,
             md: 768,//250
             lg: 992,
             xl: 1200,
@@ -28,8 +28,8 @@ let theme = createTheme({
         MuiTextField: {
             root: {
                 "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-                    backgroundColor: '#FFF',
-                    color: 'green'
+                    //backgroundColor: '#FFF',
+                    //color: 'green'
                 },
             },
         }

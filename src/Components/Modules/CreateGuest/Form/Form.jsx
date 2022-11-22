@@ -4,15 +4,17 @@ import { add } from 'date-fns'
 import DateFnsUtils from "@date-io/date-fns";
 import {useFormik} from "formik";
 import { fromUnixTime, getUnixTime } from 'date-fns'
+import COUNTRIES from "../../../../helper/countries";
 
 //Material UI
 import {makeStyles} from '@material-ui/core/styles';
 import {FormControl, Grid, InputLabel, MenuItem, Select, TextField} from "@material-ui/core";
 import {KeyboardDatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
-import COUNTRIES from "../../../../helper/countries";
 import {Autocomplete} from "@material-ui/lab";
 
 //Redux
+import {store} from "../../../../Store/Guest/actions";
+import {useDispatch} from "react-redux";
 
 //Assets
 
@@ -25,6 +27,7 @@ const useStyles = makeStyles(theme => ({
 const Form = () => {
 
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const [selectedCountry, setSelectedCountry] = React.useState(null);
 
@@ -56,7 +59,7 @@ const Form = () => {
             category: '1'
         },
         onSubmit: values => {
-            //dispatch(login(values));
+            dispatch(store(values));
         },
     })
 

@@ -11,6 +11,11 @@ Clone the github repo using below command
 <br/>
 Open project directory in terminal
 
+Install ReactJs Dependencies
+
+###`npm install`
+
+<br/>
 Serve the the ReactJs App
 
 ### `npm start`
@@ -18,6 +23,11 @@ Serve the the ReactJs App
 <br/>
 Now in terminal open the server directory which is located in the root directory
 
+Install NodeJs Dependencies
+
+###`npm install`
+
+<br/>
 Serve the the NodeJs js App
 
 ### `node server`

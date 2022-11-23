@@ -50,10 +50,10 @@ const Form = () => {
 
     const formik = useFormik({
         initialValues: {
-            name: "Fahad",
-            email: "Shaikh@hi.kjh",
+            name: "",
+            email: "",
             isdCode: "+91",
-            phoneNumber: "8424819943    ",
+            phoneNumber: "",
             adults: 1,
             children: 0,
             checkInDate: getUnixTime(new Date()),

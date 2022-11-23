@@ -21,6 +21,7 @@ export const store = (formData, resetForm) => {
     axios.post(`http://localhost:5000/api/store`, formData)
         .then(res => {
             resetForm();
+            alert('Booking Added');
         })
         .catch(error => {
             //dispatch(uiActions.setErrorApiResponse(error));

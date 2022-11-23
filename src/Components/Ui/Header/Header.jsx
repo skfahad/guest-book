@@ -2,7 +2,7 @@
 import React from "react";
 import {Link, useHistory} from "react-router-dom";
 import logo from '../../../Assets/logo.png'
-import {AUTH} from "../../../helper/routes";
+import {AUTH, USER} from "../../../helper/routes";
 
 //Material UI
 import {makeStyles} from "@material-ui/core/styles";
@@ -61,9 +61,11 @@ const Header = () => {
             <AppBar className={classes.appbar} position="static" color="transparent" elevation={0}>
                 <Toolbar className={classes.toolbar}>
 
-                    <div className={classes.logoContainer}>
-                        <img src={logo} alt="Logo" />
-                    </div>
+                    <Link to={USER.create}>
+                        <div className={classes.logoContainer}>
+                            <img src={logo} alt="Logo" />
+                        </div>
+                    </Link>
 
                     {
                         isAuthenticated ?

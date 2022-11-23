@@ -6,16 +6,16 @@ import NoData from "../../Ui/NoData/NoData";
 import Filter from "./GuestItem/Filter/Filter";
 import {useFormik} from "formik";
 import {add, getUnixTime} from "date-fns";
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 //Material UI
 import {makeStyles} from '@material-ui/core/styles';
 import {Grid} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 //Redux
 import {useDispatch, useSelector} from "react-redux";
-import {show} from "../../../Store/Guest/actions";
-import Button from "@material-ui/core/Button";
-import {ADMIN} from "../../../helper/routes";
+import {show, exportToExcel, exportToPdf} from "../../../Store/Guest/actions";
 
 //Assets
 
@@ -50,8 +50,38 @@ const GuestList = () => {
         dispatch(show(formik.values));
     }, [formik.values])
 
+    const handleExcelExport = () => {
+        dispatch(exportToExcel());
+    }
+
+    const handlePdfExport = () => {
+        dispatch(exportToPdf());
+    }
+
     return (
         <Grid container direction="column" className={classes.mainSection}>
+
+            <Grid item container style={{marginBottom: 40}}>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<GetAppIcon />}
+                    onClick={handleExcelExport}
+                    style={{marginRight: 20, marginBottom: 20}}
+                >
+                    Export to Excel
+                </Button>
+
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<GetAppIcon />}
+                    onClick={handlePdfExport}
+                    style={{marginRight: 20, marginBottom: 20}}
+                >
+                    Export to PDF
+                </Button>
+            </Grid>
 
             <Grid item>
                 <PageTitle title="Bookings"/>

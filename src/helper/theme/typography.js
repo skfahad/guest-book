@@ -1,6 +1,3 @@
-import palette from "./palette";
-import theme from "./theme";
-
 const h1 = {
     fontSize: '1.625rem',
     fontWeight: '700',
@@ -58,7 +55,6 @@ const h6 = {
     },
 };
 
-//Kajabi Body
 const body1 = {
     fontSize: '1rem',
     fontWeight: '400',
@@ -69,7 +65,6 @@ const body1 = {
     },
 };
 
-//Kajabi Body Sm
 const body2 = {
     fontSize: '0.875rem',
     fontWeight: '400',
@@ -84,37 +79,6 @@ const subtitle1 = {
     fontWeight: '400',
     lineHeight: '1.25rem'
 };
-
-/*Custom*/
-const lmsHeading5 = {
-    fontSize: h5.fontSize,
-    lineHeight: h5.lineHeight,
-    fontWeight: 600,
-    letterSpacing: '.01875rem',
-    '@media (min-width:992px)': {
-        fontSize: h5['@media (min-width:992px)'].fontSize,
-
-    },
-}
-
-const lmsHeading6 = {
-    fontSize: h6.fontSize,
-    lineHeight: h6.lineHeight,
-    fontWeight: 600,
-    letterSpacing: '.01875rem',
-    '@media (min-width:992px)': {
-        fontSize: h6['@media (min-width:992px)'].fontSize,
-    },
-}
-const lmsHeadingBody2= {
-    fontSize: [body2.fontSize, '!important'],
-    lineHeight: body2.lineHeight,
-    fontWeight: 400,
-    letterSpacing: '.0125rem',
-    '@media (min-width:992px)': {
-        fontSize: body2['@media (min-width:992px)'].fontSize,
-    },
-}
 
 const typography = {
     fontFamily: [

@@ -5,7 +5,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 //Pages
 import Login from '../../../Pages/Login';
-import CreateGuest from '../../../Pages/CreateGuest';
+import Index from '../../../Pages/Index';
 import GuestList from '../../../Pages/GuestList';
 
 const RouteList = () => {
@@ -18,7 +18,7 @@ const RouteList = () => {
 
                 <Route path={AUTH.login} exact component={Login} />
 
-                <Route path={USER.create} exact component={CreateGuest} />
+                <Route path={USER.create} exact component={Index} />
 
                 <ProtectedRoute path={ADMIN.show} exact component={GuestList} />
 

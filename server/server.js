@@ -7,6 +7,8 @@ var fs = require('fs');
 const {fromUnixTime, getUnixTime, startOfDay, endOfDay, format} = require("date-fns");
 const xl = require('excel4node');
 const pdf = require('html-pdf');
+const admzip = require('adm-zip')
+const path = require("path");
 
 const corsOption = {
     origin: ['http://localhost:3000'],
@@ -131,11 +133,13 @@ app.get('/api/exportToExcel', function (req, res) {
                 rowIndex++;
             });
 
-            wb.write(`filename.pdf`);
-
+            wb.write(`filename.xlsx`, function () {
+                let filePath = path.join(__dirname, `filename.xlsx`);
+                res.download(filePath);
+            });
         }
     });
-    res.send({message: 'Exported'})
+    //res.send({message: 'Exported'})
 })
 
 app.get('/api/exportToPdf', function (req, res) {
@@ -183,12 +187,11 @@ app.get('/api/exportToPdf', function (req, res) {
                 "timeout": "120000"
             };
 
-            pdf.create(table, options).toFile('test.pdf', function (err, result) {
-                if (err) return console.log(err);
-                console.log("pdf create");
+            pdf.create(table, options).toFile('filename.pdf', function (err, result) {
+                let filePath = path.join(__dirname, `filename.pdf`);
+                res.download(filePath);
             });
 
         }
     });
-    res.send({message: 'Exported'})
 })

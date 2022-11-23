@@ -3,7 +3,7 @@ export const AUTH = {
 }
 
 export const USER = {
-    create: '/create'
+    create: '/'
 }
 
 export const ADMIN = {

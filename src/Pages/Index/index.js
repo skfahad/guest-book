@@ -1,6 +1,6 @@
 //React, React Router, Formik
 import React from 'react';
-import CreateGuest from "../../Components/Modules/CreateGuest/CreateGuest";
+import CreateGuest from "../../Components/Modules/Index/Index";
 
 //Material UI
 import {makeStyles} from '@material-ui/core/styles';
@@ -14,8 +14,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Index = () => {
-
-    const classes = useStyles();
 
     return (
         <CreateGuest />

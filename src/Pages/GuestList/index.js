@@ -15,8 +15,6 @@ const useStyles = makeStyles(theme => ({
 
 const Index = () => {
 
-    const classes = useStyles();
-
     return (
         <GuestList />
     );

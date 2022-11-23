@@ -1,6 +1,6 @@
 import React from "react";
 
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 
@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
 
 const NoData = () => {
     const classes = useStyles();
-    const theme = useTheme();
 
     return (
         <Grid

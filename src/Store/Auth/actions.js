@@ -7,7 +7,6 @@ export const login = (formData, history) => {
 
         axios.post(`http://localhost:5000/api/login`, formData)
             .then(response => {
-                console.log('response: ', response);
                 if (response.data.success == 1) {
                     dispatch(authActions.setAuthenticated());
                     localStorage.setItem('auth', btoa(Math.random().toString()).substring(10, 15));

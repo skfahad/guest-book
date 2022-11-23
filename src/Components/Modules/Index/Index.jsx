@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const CreateGuest = () => {
+const Index = () => {
 
     const classes = useStyles();
 
@@ -58,4 +58,4 @@ const CreateGuest = () => {
     );
 };
 
-export default CreateGuest;
+export default Index;

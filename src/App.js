@@ -5,7 +5,6 @@ import {BrowserRouter} from "react-router-dom";
 import theme from "./helper/theme/theme";
 import {Provider} from "react-redux";
 import store from "./Store/store";
-import {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {authActions} from "./Store/Auth/slice";
 

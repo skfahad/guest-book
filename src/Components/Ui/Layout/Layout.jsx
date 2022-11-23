@@ -1,7 +1,5 @@
 //React, React Router, Formik
-import React, {useEffect, useState} from 'react';
-import {useHistory} from "react-router-dom";
-import {AUTH} from "../../../helper/routes";
+import React from 'react';
 import Header from "../Header/Header";
 
 //Material UI
@@ -30,17 +28,8 @@ const useStyles = makeStyles(theme => ({
 const Layout = (props) => {
 
     const classes = useStyles();
-    const history = useHistory();
-
-    const [isLoginPage, setIsLoginPage] = useState(false);
 
     const {isAuthenticated} = useSelector(state => state.auth);
-
-    console.log('isLoginPage: ', isLoginPage);
-
-    useEffect(() => {
-        setIsLoginPage(history.location.pathname === AUTH.login);
-    }, [])
 
     let content = null;
     if (!isAuthenticated) { //!isAuthenticated
@@ -58,10 +47,7 @@ const Layout = (props) => {
 
     return (
         <>
-            {/*<Spinner/>
-            <SnackBar/>*/}
-
-            {!isLoginPage && <Header />}
+            <Header />
             {content}
         </>
     );

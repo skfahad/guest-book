@@ -1,7 +1,7 @@
 //React, React Router, Formik
 import React from "react";
 import {useFormik} from "formik";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import validationObject from "../../../request/Auth/LoginRequest";
 
 //Material UI
@@ -17,23 +17,18 @@ import {login} from "../../../Store/Auth/actions";
 //Assets
 import login_side_image from "../../../Assets/side-image.png";
 import logo from "../../../Assets/logo.png";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import {ADMIN, USER} from "../../../helper/routes";
 
 const Login = () => {
 
     const useStyles = makeStyles(theme => ({
-        rootContainer: {
-            height: "100vh",
-        },
         loginContainer: {
             width: "fit-content",
             background: "#FFF",
             minHeight: "525px",
             margin: "auto",
+            marginTop: theme.spacing(5),
             boxShadow: "0 30px 60px 0 rgb(0 0 0 / 20%)",
             [theme.breakpoints.down("sm")]: {
-                height: "100vh",
                 boxShadow: "none"
             }
         },
@@ -90,9 +85,6 @@ const Login = () => {
             marginBottom: theme.spacing(3.75),
             backgroundColor: '#FFF',
         },
-        addButton: {
-
-        }
     }));
 
     const classes = useStyles();
@@ -112,20 +104,7 @@ const Login = () => {
 
     return (
 
-        <Grid container direction="column" className={classes.rootContainer}>
-
-            <Grid item>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    endIcon={<ArrowForwardIcon />}
-                    component={Link}
-                    to={USER.create}
-                    className={classes.addButton}
-                >
-                    Add Booking
-                </Button>
-            </Grid>
+        <Grid container direction="column">
 
             <Grid item container className={classes.loginContainer}>
 
@@ -135,7 +114,7 @@ const Login = () => {
                       direction="column"
                       alignItems="center"
                 >
-                    <img src={logo} className={classes.logo}/>
+                    <img src={logo} alt="Side Image" className={classes.logo}/>
 
                     <Grid item>
                         <Typography className={classes.loginHeading}>Sign In</Typography>

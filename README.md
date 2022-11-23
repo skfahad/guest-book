@@ -13,7 +13,7 @@ Open project directory in terminal
 
 Install ReactJs Dependencies
 
-###`npm install`
+### `npm install`
 
 <br/>
 Serve the the ReactJs App
@@ -25,7 +25,7 @@ Now in terminal open the server directory which is located in the root directory
 
 Install NodeJs Dependencies
 
-###`npm install`
+### `npm install`
 
 <br/>
 Serve the the NodeJs js App
@@ -37,5 +37,5 @@ Visit localhost:3000 in browser
 
 Find admin credentials below
 
-###`Email: hashir@anvisdigital.com`
-###`Password: user123`
+### `Email: hashir@anvisdigital.com`
+### `Password: user123`

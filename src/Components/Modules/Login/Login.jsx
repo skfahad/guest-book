@@ -1,21 +1,24 @@
 //React, React Router, Formik
 import React from "react";
 import {useFormik} from "formik";
-import {Link} from "react-router-dom";
-
-//Redux
-//import {useDispatch, useSelector} from "react-redux";
-//import {login} from "@store/Auth/actions";
+import {Link, useHistory} from "react-router-dom";
+import validationObject from "../../../request/Auth/LoginRequest";
 
 //Material UI
-import {Grid, Hidden, makeStyles, Typography} from "@material-ui/core";
+import {Grid, Hidden, makeStyles, Select, Typography} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import {Alert} from "@material-ui/lab";
 
+//Redux
+import {useDispatch} from "react-redux";
+import {login} from "../../../Store/Auth/actions";
+
 //Assets
 import login_side_image from "../../../Assets/side-image.png";
 import logo from "../../../Assets/logo.png";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import {ADMIN, USER} from "../../../helper/routes";
 
 const Login = () => {
 
@@ -24,7 +27,6 @@ const Login = () => {
             height: "100vh",
         },
         loginContainer: {
-            // width: "800px",
             width: "fit-content",
             background: "#FFF",
             minHeight: "525px",
@@ -63,25 +65,9 @@ const Login = () => {
             marginBottom: theme.spacing(7.5),
             color: '#FFF'
         },
-        /*loginSubHeading: {
-            fontSize: "14px",
-            lineHeight: "17px",
-            marginBottom: theme.spacing(5),
-            color: theme.palette.grey.bright_grey,
-            "& a": {
-                color: theme.palette.link.main,
-            }
-        },*/
-        alertWrapper: {
-            width: "100%",
-            marginBottom: theme.spacing(5),
-            "& .MuiAlert-filledError": {
-                backgroundColor: '#f0574dd9',
-            }
-        },
         submitButton: {
             padding: `${theme.spacing(1.75)}px ${theme.spacing(3.75)}px`,
-            marginBottom: theme.spacing(5),
+            margin: theme.spacing(5, 0, 4, 0),
             "& .MuiButton-label": {
                 fontSize: "14px",
                 color: theme.palette.secondary.main,
@@ -95,13 +81,23 @@ const Login = () => {
             padding: theme.spacing(8),
             backgroundPosition: "50%",
             backgroundSize: "cover",
+        },
+        label: {
+            fontSize: 14,
+            color: '#FFF',
+        },
+        inputField: {
+            marginBottom: theme.spacing(3.75),
+            backgroundColor: '#FFF',
+        },
+        addButton: {
+
         }
     }));
 
     const classes = useStyles();
-    //const dispatch = useDispatch();
-
-    //const pendingRequest = useSelector(state => state.ui.pendingRequest);
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     const formik = useFormik({
         initialValues: {
@@ -109,13 +105,27 @@ const Login = () => {
             password: ""
         },
         onSubmit: values => {
-            //dispatch(login(values));
+            dispatch(login(values, history));
         },
+        validationSchema: validationObject
     });
 
     return (
 
-        <Grid container className={classes.rootContainer}>
+        <Grid container direction="column" className={classes.rootContainer}>
+
+            <Grid item>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<ArrowForwardIcon />}
+                    component={Link}
+                    to={USER.create}
+                    className={classes.addButton}
+                >
+                    Add Booking
+                </Button>
+            </Grid>
 
             <Grid item container className={classes.loginContainer}>
 
@@ -131,25 +141,9 @@ const Login = () => {
                         <Typography className={classes.loginHeading}>Sign In</Typography>
                     </Grid>
 
-                    {/*<Grid item>
-                        <Typography className={classes.loginSubHeading}>
-                            Need an account?
-                            <Link to="/get_started"> Get Started</Link>
-                        </Typography>
-                    </Grid>*/}
-
-                    {/*Show first error when available*/}
-                    {
-                        /*errorApiResponse &&
-                        <Grid item className={classes.alertWrapper}>
-                            <Alert variant="filled" severity="error" icon={false}>
-                                {errorApiResponse[Object.keys(errorApiResponse)[0]][0]}
-                            </Alert>
-                        </Grid>*/
-                    }
-
                     <Grid item>
                         <form onSubmit={formik.handleSubmit} autoComplete="off">
+                            <label className={classes.label}>Email</label>
                             <TextField
                                 fullWidth
                                 id="email"
@@ -160,8 +154,11 @@ const Login = () => {
                                 value={formik.values.email}
                                 onChange={formik.handleChange}
                                 size="small"
-                                style={{marginBottom: 20}}
+                                error={formik.touched.email && Boolean(formik.errors.email)}
+                                helperText={formik.touched.email && formik.errors.email}
                             />
+
+                            <label className={classes.label}>Password</label>
                             <TextField
                                 fullWidth
                                 id="password"
@@ -173,7 +170,8 @@ const Login = () => {
                                 value={formik.values.password}
                                 onChange={formik.handleChange}
                                 size="small"
-                                style={{marginBottom: 20}}
+                                error={formik.touched.password && Boolean(formik.errors.password)}
+                                helperText={formik.touched.password && formik.errors.password}
                             />
                             <Button
                                 className={classes.submitButton}
@@ -181,10 +179,8 @@ const Login = () => {
                                 variant="contained"
                                 color="primary"
                                 type="submit"
-                                //disabled={pendingRequest}
                             >
                                 Sign in
-                                {/*{pendingRequest ? "Signing in..." : "Sign in"}*/}
                             </Button>
                         </form>
                     </Grid>
@@ -193,7 +189,7 @@ const Login = () => {
 
                 <Hidden mdDown>
                     <Grid item className={classes.section}>
-                        <div className={classes.billboard}></div>
+                        <div className={classes.billboard} />
                     </Grid>
                 </Hidden>
 

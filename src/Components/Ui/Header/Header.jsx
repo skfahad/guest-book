@@ -1,23 +1,26 @@
 //React, React Router, Formik
 import React from "react";
+import {Link, useHistory} from "react-router-dom";
+import logo from '../../../Assets/logo.png'
+import {AUTH} from "../../../helper/routes";
 
 //Material UI
-import {makeStyles, useTheme} from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 
 //Redux
-//import {useSelector, useDispatch} from "react-redux";
-//import {uiActions} from "@store/ui/slice";
+import {useDispatch, useSelector} from "react-redux";
+import {logout} from "../../../Store/Auth/actions";
 
 //Assets
-import logo from '../../../Assets/logo.png'
 
 const useStyles = makeStyles((theme) => ({
     container: {
         width: "100%",
         marginLeft: "auto",
+        marginBottom: theme.spacing(10)
     },
     appbar: {
         background: theme.palette.secondary.main,
@@ -44,8 +47,14 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
 
     const classes = useStyles();
-    //const dispatch = useDispatch();
-    const theme = useTheme();
+    const dispatch = useDispatch();
+    const history = useHistory();
+
+    const handleLogout = () => {
+        dispatch(logout(history));
+    }
+
+    const {isAuthenticated} = useSelector(state => state.auth);
 
     return (
         <div className={classes.container}>
@@ -56,9 +65,24 @@ const Header = () => {
                         <img src={logo} alt="Logo" />
                     </div>
 
-                    <Button className={classes.logoutButton} variant="text">
-                        Logout
-                    </Button>
+                    {
+                        isAuthenticated ?
+                        <Button
+                            className={classes.logoutButton}
+                            variant="text"
+                            onClick={handleLogout}
+                        >
+                            Logout
+                        </Button> :
+                            <Button
+                                className={classes.logoutButton}
+                                variant="text"
+                                component={Link}
+                                to={AUTH.login}
+                            >
+                                Login
+                            </Button>
+                    }
 
                 </Toolbar>
             </AppBar>

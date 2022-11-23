@@ -101,7 +101,7 @@ const Filter = ({formik}) => {
                             helperText={formik.touched.category && formik.errors.category}
                             displayEmpty
                         >
-                            <MenuItem value="">None</MenuItem>
+                            <MenuItem value="">All</MenuItem>
                             <MenuItem value="Single">Single</MenuItem>
                             <MenuItem value="Double">Double</MenuItem>
                             <MenuItem value="Queen">Queen</MenuItem>

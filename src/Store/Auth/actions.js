@@ -1,47 +1,36 @@
 import {authActions} from "./slice";
-import axiosInstance from "@helper/axios";
+import {ADMIN, USER} from "../../helper/routes";
+import axios from "axios";
 
-const basePath = '/auth';
-
-/*
-export const login = credential => {
+export const login = (formData, history) => {
     return dispatch => {
 
-        dispatch(uiActions.setPendingRequest({pendingRequest: true}));
-
-        axiosInstance.post(`${basePath}/login`, credential)
+        axios.post(`http://localhost:5000/api/login`, formData)
             .then(response => {
-                dispatch(auth_actions.setAuthenticated());
-                dispatch(
-                    auth_actions.setUser({
-                        auth_user: response.user
-                    })
-                );
-                dispatch(uiActions.setPendingRequest({pendingRequest: false}));
-                setAccessToken(response.access_token);
+                console.log('response: ', response);
+                if (response.data.success == 1) {
+                    dispatch(authActions.setAuthenticated());
+                    localStorage.setItem('auth', btoa(Math.random().toString()).substring(10, 15));
+                    history.push(ADMIN.show);
+                }
             })
             .catch(([error, status]) => {
-                dispatch(uiActions.setErrorApiResponse(error));
-                dispatch(uiActions.setPendingRequest({pendingRequest: false}));
                 console.log(error.response);
             })
     }
 }
 
-export const logout = () => {
+export const logout = (history) => {
     return dispatch => {
 
-        dispatch(uiActions.toggleSpinner({spinner: true}));
-
-        axiosInstance.post(`${basePath}/logout`)
+        axios.post(`http://localhost:5000/api/login`)
             .then(response => {
-                UnsetAccessToken();
-                dispatch(uiActions.toggleSpinner({spinner: false}));
-                dispatch(auth_actions.setUnAuthenticated());
+                localStorage.removeItem('auth');
+                dispatch(authActions.setUnAuthenticated());
+                history.push(USER.create);
             })
             .catch(([error, status]) => {
                 console.log(error.response);
-                dispatch(uiActions.toggleSpinner({spinner: false}));
             })
     }
-}*/
+}

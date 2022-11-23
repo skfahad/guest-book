@@ -1,6 +1,7 @@
 import ScrollToTop from "../ScrollToTop/ScrollToTop";
 import {Route, Switch} from "react-router-dom";
 import {AUTH, USER, ADMIN} from "../../../helper/routes";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 //Pages
 import Login from '../../../Pages/Login';
@@ -19,7 +20,7 @@ const RouteList = () => {
 
                 <Route path={USER.create} exact component={CreateGuest} />
 
-                <Route path={ADMIN.show} exact component={GuestList} />
+                <ProtectedRoute path={ADMIN.show} exact component={GuestList} />
 
                 <Route path='*' exact>
                     Nothing Found

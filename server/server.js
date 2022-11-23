@@ -23,28 +23,48 @@ app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
 //app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json())
 
+app.post('/api/login', function (req, res) {
+
+    let admins = [];
+    fs.readFile('data/admins.json', 'utf8', function readFileCallback(err, data) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('req.body: ', req.body);
+            let obj = JSON.parse(data); //now it an object
+            admins = obj.data;
+            let [authAdmin] = admins.filter(admin => admin.email === req.body.email && admin.password === req.body.password);
+            console.log('authAdmin: ', authAdmin);
+            if (!authAdmin) {
+                console.log('got it');
+                res.send({success: 0});
+            } else {
+                res.send({success: 1});
+            }
+        }
+    });
+})
+
 app.get('/api/show', function (req, res) {
 
     let guests = null;
-    fs.readFile('data/guests.json', 'utf8', function readFileCallback(err, data){
-        if (err){
+    fs.readFile('data/guests.json', 'utf8', function readFileCallback(err, data) {
+        if (err) {
             console.log(err);
         } else {
             guests = JSON.parse(data); //now it an object
             guests = guests.data;
 
-            console.log(req.query);
-
             if (req.query.filterByDate === 'true') {
                 if (req.query.checkInDate) {
                     let start = getUnixTime(startOfDay(fromUnixTime(req.query.checkInDate)));
                     let end = getUnixTime(endOfDay(fromUnixTime(req.query.checkInDate)));
-                    guests = guests.filter(guest => guest.checkInDate >= start  && guest.checkInDate <= end);
+                    guests = guests.filter(guest => guest.checkInDate >= start && guest.checkInDate <= end);
                 }
                 if (req.query.checkOutDate) {
                     let start = getUnixTime(startOfDay(fromUnixTime(req.query.checkOutDate)));
                     let end = getUnixTime(endOfDay(fromUnixTime(req.query.checkOutDate)));
-                    guests = guests.filter(guest => guest.checkOutDate >= start  && guest.checkOutDate <= end);
+                    guests = guests.filter(guest => guest.checkOutDate >= start && guest.checkOutDate <= end);
                 }
             }
 
@@ -52,13 +72,14 @@ app.get('/api/show', function (req, res) {
                 guests = guests.filter(guest => guest.category === req.query.category);
             }
             res.send({guests: guests});
-        }});
+        }
+    });
 })
 
 app.post('/api/store', function (req, res) {
 
-    fs.readFile('data/guests.json', 'utf8', function readFileCallback(err, data){
-        if (err){
+    fs.readFile('data/guests.json', 'utf8', function readFileCallback(err, data) {
+        if (err) {
             console.log(err);
         } else {
             let obj = JSON.parse(data); //now it an object
@@ -69,14 +90,15 @@ app.post('/api/store', function (req, res) {
             fs.writeFile('data/guests.json', json, 'utf8', function () {
                 //console.log('write it back');
             }); // write it back
-        }});
+        }
+    });
     res.send({message: 'Booking added'})
 })
 
 app.get('/api/exportToExcel', function (req, res) {
 
-    fs.readFile('data/guests.json', 'utf8', function readFileCallback(err, data){
-        if (err){
+    fs.readFile('data/guests.json', 'utf8', function readFileCallback(err, data) {
+        if (err) {
             console.log(err);
         } else {
             let obj = JSON.parse(data); //now it an object
@@ -94,10 +116,8 @@ app.get('/api/exportToExcel', function (req, res) {
             });
 
             let rowIndex = 2;
-            guests.forEach( record => {
+            guests.forEach(record => {
                 let columnIndex = 1;
-
-                console.log('checkin: ', format(fromUnixTime(record['checkInDate']), 'dd/mm/yyyy'));
 
                 ws.cell(rowIndex, columnIndex++).string(record['name']);
                 ws.cell(rowIndex, columnIndex++).string(record['email']);
@@ -113,14 +133,15 @@ app.get('/api/exportToExcel', function (req, res) {
 
             wb.write(`filename.pdf`);
 
-        }});
+        }
+    });
     res.send({message: 'Exported'})
 })
 
 app.get('/api/exportToPdf', function (req, res) {
 
-    fs.readFile('data/guests.json', 'utf8', function readFileCallback(err, data){
-        if (err){
+    fs.readFile('data/guests.json', 'utf8', function readFileCallback(err, data) {
+        if (err) {
             console.log(err);
         } else {
             let obj = JSON.parse(data); //now it an object
@@ -138,7 +159,7 @@ app.get('/api/exportToPdf', function (req, res) {
             });
             table += "</tr>";
 
-            guests.forEach(function(row){
+            guests.forEach(function (row) {
                 table += "<tr>";
                 table += `<td style="white-space: nowrap">${row.name}</td>`;
                 table += `<td style="white-space: nowrap">${row.email}</td>`;
@@ -162,12 +183,12 @@ app.get('/api/exportToPdf', function (req, res) {
                 "timeout": "120000"
             };
 
-            pdf.create(table, options).toFile('test.pdf', function(err, result) {
+            pdf.create(table, options).toFile('test.pdf', function (err, result) {
                 if (err) return console.log(err);
                 console.log("pdf create");
             });
 
-        }});
+        }
+    });
     res.send({message: 'Exported'})
 })
-// create a GET route

@@ -14,6 +14,8 @@ import {Grid} from "@material-ui/core";
 //Redux
 import {useDispatch, useSelector} from "react-redux";
 import {show} from "../../../Store/Guest/actions";
+import Button from "@material-ui/core/Button";
+import {ADMIN} from "../../../helper/routes";
 
 //Assets
 
@@ -52,7 +54,7 @@ const GuestList = () => {
         <Grid container direction="column" className={classes.mainSection}>
 
             <Grid item>
-                <PageTitle title="Guests"/>
+                <PageTitle title="Bookings"/>
             </Grid>
 
             <Grid item>
